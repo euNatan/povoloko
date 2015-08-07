@@ -1,0 +1,46 @@
+@import "bootstrap/bootstrap";
+
+$color-default: #0077A7;
+$border-color-default: #028CC4;
+$color-write: #fff;
+$color-lightblue: #eef;
+$color-silver: #ddd;
+$border-color-silver: #ccc;
+$color-black: #333;
+$border-color-black: #555;
+
+
+body{
+  word-break: break-all;
+  word-wrap: break-word;
+}
+img{width:100%;}
+h3{color:$color-default !important;}
+li{list-style-type: none;}
+
+.color-default {
+  background-color: $color-default !important;
+  border-color: $border-color-default !important;
+}
+.color-silver {
+  background-color: $color-silver !important;
+  border-color: $border-color-silver !important;
+}
+.padding-null{
+  padding: 0px !important;
+}
+.margin-null{
+  margin: 0px !important;
+}
+.seis{height:600px;}
+.write{color:$color-write !important;}
+.border-radius-null{border-radius: 0px !important;}
+.border-null{border:0px solid transparent !important;}
+.border-lb-null{border-left: 0px !important;border-bottom:0px !important;}
+.well{background-color: $color-lightblue !important;}
+.fixed-bottom{position:fixed !important;bottom:0px !important;width: 100%;}
+.input-message{height: 33px;width: 89%; margin-top: 7px;}
+.btn-message{color:$color-write !important;background-color:$color-default;width:10%;}
+.messageBody{margin-left:5px;}
+.log {color: gray; font-size: 70%; margin: 5px; text-align: center; }
+.uname{margin:0 0 0 15px; position: relative; top: 10px; font-size: 15px; color: $color-default; text-transform: capitalize;}

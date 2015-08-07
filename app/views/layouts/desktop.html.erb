@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title><%= content_for?(:title) ? yield(:title) : "Povoloko" %></title>
+
+    <%= stylesheet_link_tag    "application" %>
+    <%= javascript_include_tag "vendor/modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-default color-default border-radius-null">
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand write" href="#">PovoLoko</a>
+        </div>
+
+      </div>
+    </nav>
+
+    <div class="container">
+      <%= yield %>
+    </div>
+
+    <nav class="navbar navbar-default color-silver fixed-bottom border-radius-null">
+      <div class="container">
+          <%= text_field_tag :message,"", class:"input-message inputMessage" %>
+          <button type="button" class="btn btn-message border-radius-null">Primary</button>
+      </div>
+    </nav>
+
+    <script src="http://172.16.2.25:3001/socket.io/socket.io.js"></script>
+    <%= javascript_include_tag "application" %>
+
+  </body>
+</html>
