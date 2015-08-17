@@ -38,7 +38,7 @@ gem 'httparty'
 gem 'rest-client'
 gem 'dalli', '~> 2.7.2'
 gem 'foundation-rails'
-
+gem 'omniauth-facebook'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

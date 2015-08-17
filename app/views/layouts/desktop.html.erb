@@ -9,8 +9,9 @@
     <%= stylesheet_link_tag    "application" %>
     <%= javascript_include_tag "vendor/modernizr" %>
     <%= csrf_meta_tags %>
+    
   </head>
-
+  
   <body>
     <nav class="navbar navbar-default color-default border-radius-null">
       <div class="container">
@@ -31,9 +32,27 @@
           <button type="button" class="btn btn-message border-radius-null">Primary</button>
       </div>
     </nav>
-
-    <script src="http://45.55.170.134:3001/socket.io/socket.io.js"></script>
+    <!--45.55.170.134-->
+    <script src="http://localhost:3001/socket.io/socket.io.js"></script>
     <%= javascript_include_tag "application" %>
+    
+    <script> 
+      $(document).ready(function(){
+        var socket = io.connect("http://localhost:3001/");
+        function setUsername (username, image) {
+          if (username) {
+            // Tell the server your username
+            socket.emit('add user', {
+              userimage: image,
+              username: username
+            });
+          }
+        }
+
+          window.onload = function() { setUsername('<%= loged[0] %>', '<%= loged[1] %>'); };
+    
+      });  
+    </script>
 
   </body>
 </html>

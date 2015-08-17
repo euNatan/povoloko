@@ -5,6 +5,20 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
+//var redis = require("redis"),
+ // $redis = redis.createClient();
+  //$redis.auth(14120114)
+//load modules
+//var MySQLPool = require("mysql-pool").MySQLPool;
+//mysql connection
+//var pool = new MySQLPool({
+// poolSize: 1,
+// user:     'root',
+//  password: '14120114',
+//  database: 'povoloko_development',
+//  host: 'localhost'
+
+//});
 
 io.on('connection', function(socket){
   console.log('a user connected');
@@ -15,6 +29,7 @@ http.listen(3001, function(){
 });
 // usernames which are currently connected to the chat
 var usernames = {};
+var users = [];
 var numUsers = 0;
 
 io.on('connection', function (socket) {
@@ -30,25 +45,32 @@ io.on('connection', function (socket) {
   });
 
   // when the client emits 'add user', this listens and executes
-  socket.on('add user', function (username) {
+  socket.on('add user', function (data) {
     // we store the username in the socket session for this client
-    socket.username = username;
+    socket.username = data["username"];
     // add the client's username to the global list
-    usernames[username] = username;
+    usernames[data["username"]] = data["username"];
+
+    users.push(data);
+  
     ++numUsers;
     addedUser = true;
     socket.emit('login', {
       numUsers: numUsers,
-      username: username
+      username: data["username"]
     });
     // echo globally (all clients) that a person has connected
     socket.broadcast.emit('user joined', {
       username: socket.username,
       numUsers: numUsers
     });
+    
+    io.emit('users online', {
+      users: users 
+    });
 
   });
-
+  
   // when the client emits 'typing', we broadcast it to others
   socket.on('typing', function () {
     socket.broadcast.emit('typing', {
@@ -68,6 +90,10 @@ io.on('connection', function (socket) {
     // remove the username from global usernames list
     if (addedUser) {
       delete usernames[socket.username];
+      users.splice(usernames[socket.username],1);
+      io.emit('users online', {
+        users: users 
+      });
       --numUsers;
 
       // echo globally that this client has left
@@ -77,4 +103,5 @@ io.on('connection', function (socket) {
       });
     }
   });
+  
 });

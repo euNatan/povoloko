@@ -1,4 +1,5 @@
 $(function() {
+
   var FADE_TIME = 150; // ms
   var TYPING_TIMER_LENGTH = 400; // ms
   var COLORS = [
@@ -17,20 +18,19 @@ $(function() {
   var $chatPage = $('.chat.page'); // The chatroom page
 
   // Prompt for setting a username
-  var username;
+
+  var username = $('.usernameInput').html();
   var connected = false;
   var typing = false;
   var lastTypingTime;
   var $currentInput = $usernameInput.focus();
 
-  var socket = io.connect("http://45.55.170.134:3001/");
+  var socket = io.connect("http://localhost:3001/");
 
   function addParticipantsMessage (data) {
     var message = '';
     if (data.numUsers === 1) {
       //message += "Um novo usuario no Chat";
-      $(".users").append('<div class="col-md-12 padding-null"><div class="col-md-2 padding-null"><img src="http://br.web.img2.acsta.net/c_100_100/b_1_d6d6d6/medias/nmedia/18/87/27/76/19906125.jpg" class="img-circle"></div><div class="uname col-md-8 padding-null">'+ data.username +'</div></div>');
-
     } else {
       //message += "Temos" + data.numUsers + " participantes";
     }
@@ -38,9 +38,8 @@ $(function() {
   }
 
   // Sets the client's username
-  function setUsername () {
-    username = cleanInput($usernameInput.val().trim());
-
+  function setUsername (username, image) {
+    //username = cleanInput($usernameInput.val().trim());
     // If the username is valid
     if (username) {
       $loginPage.fadeOut();
@@ -49,13 +48,17 @@ $(function() {
       $currentInput = $inputMessage.focus();
 
       // Tell the server your username
-      socket.emit('add user', username);
+      socket.emit('add user', {
+        userimage: image,
+        username: username
+      });
     }
   }
 
   // Sends a chat message
   function sendMessage () {
     var message = $inputMessage.val();
+    
     // Prevent markup from being injected into the message
     message = cleanInput(message);
     // if there is a non-empty message and a socket connection
@@ -156,7 +159,7 @@ $(function() {
     if (connected) {
       if (!typing) {
         typing = true;
-        socket.emit('typing');
+        socket.emit('digitando');
       }
       lastTypingTime = (new Date()).getTime();
 
@@ -164,7 +167,7 @@ $(function() {
         var typingTimer = (new Date()).getTime();
         var timeDiff = typingTimer - lastTypingTime;
         if (timeDiff >= TYPING_TIMER_LENGTH && typing) {
-          socket.emit('stop typing');
+          socket.emit('parou de digitar');
           typing = false;
         }
       }, TYPING_TIMER_LENGTH);
@@ -201,10 +204,8 @@ $(function() {
     if (event.which === 13) {
       if (username) {
         sendMessage();
-        socket.emit('stop typing');
+        socket.emit('Parou de digitar');
         typing = false;
-      } else {
-        setUsername();
       }
     }
   });
@@ -265,4 +266,13 @@ $(function() {
   socket.on('stop typing', function (data) {
     removeChatTyping(data);
   });
+  
+  socket.on('users online', function (data){
+    $('.users').empty();
+    console.log(data.users)
+    for (var key in data.users) {
+        $(".users").append('<div class="col-md-12 padding-null"><div class="col-md-2 padding-null"><img src="http://localhost:3000/'+data.users[key].userimage +'" class="img-circle"></div><div class="uname col-md-8 padding-null">'+ data.users[key].username +'</div></div>');
+    }
+  });
+  
 });
