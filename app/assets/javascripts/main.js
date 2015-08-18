@@ -25,7 +25,7 @@ $(function() {
   var lastTypingTime;
   var $currentInput = $usernameInput.focus();
 
-  var socket = io.connect("http://localhost:3001/");
+  var socket = io.connect("http://45.55.170.134:3001/");
 
   function addParticipantsMessage (data) {
     var message = '';
@@ -37,23 +37,23 @@ $(function() {
     log(message);
   }
 
-  // Sets the client's username
+  /* Sets the client's username
   function setUsername (username, image) {
-    //username = cleanInput($usernameInput.val().trim());
-    // If the username is valid
+    /username = cleanInput($usernameInput.val().trim());
+    / If the username is valid
     if (username) {
       $loginPage.fadeOut();
       $chatPage.show();
       $loginPage.off('click');
       $currentInput = $inputMessage.focus();
 
-      // Tell the server your username
+      / Tell the server your username
       socket.emit('add user', {
         userimage: image,
         username: username
       });
     }
-  }
+  } */
 
   // Sends a chat message
   function sendMessage () {
@@ -269,7 +269,7 @@ $(function() {
   
   socket.on('users online', function (data){
     $('.users').empty();
-    console.log(data);
+
     for (var key in data.users) {
         $(".users").append('<div class="col-md-12 padding-null"><div class="col-md-2 padding-null"><img src="http://localhost:3000/'+data.users[key].userimage +'" class="img-circle"></div><div class="uname col-md-8 padding-null">'+ data.users[key].username +'</div></div>');
     }
