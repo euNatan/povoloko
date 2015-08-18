@@ -39,17 +39,18 @@
     <script> 
       $(document).ready(function(){
         var socket = io.connect("http://localhost:3001/");
-        function setUsername (username, image) {
+        function setUsername (username, image, id) {
           if (username) {
             // Tell the server your username
             socket.emit('add user', {
-              userimage: image,
-              username: username
+              id: id,
+              username: username,
+              userimage: image
             });
           }
         }
 
-          window.onload = function() { setUsername('<%= loged[0] %>', '<%= loged[1] %>'); };
+          window.onload = function() { setUsername('<%= loged[0] %>', '<%= loged[1] %>', '<%= loged[2] %>'); };
     
       });  
     </script>

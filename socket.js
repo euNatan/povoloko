@@ -48,6 +48,7 @@ io.on('connection', function (socket) {
   socket.on('add user', function (data) {
     // we store the username in the socket session for this client
     socket.username = data["username"];
+    socket.userid = data["id"];
     // add the client's username to the global list
     usernames[data["username"]] = data["username"];
 
@@ -89,11 +90,17 @@ io.on('connection', function (socket) {
   socket.on('disconnect', function () {
     // remove the username from global usernames list
     if (addedUser) {
-      delete usernames[socket.username];
-      users.splice(usernames[socket.username],1);
+      delete usernames[socket.userid];
+
+      for (var n = 0 ; n < users.length ; n++) {
+          if (users[n].id == socket.userid) {
+            users.splice(n,1);
+          }
+      }
       io.emit('users online', {
         users: users 
       });
+
       --numUsers;
 
       // echo globally that this client has left

@@ -269,7 +269,7 @@ $(function() {
   
   socket.on('users online', function (data){
     $('.users').empty();
-    console.log(data.users)
+    console.log(data);
     for (var key in data.users) {
         $(".users").append('<div class="col-md-12 padding-null"><div class="col-md-2 padding-null"><img src="http://localhost:3000/'+data.users[key].userimage +'" class="img-circle"></div><div class="uname col-md-8 padding-null">'+ data.users[key].username +'</div></div>');
     }
