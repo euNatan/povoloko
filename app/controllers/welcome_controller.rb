@@ -1,5 +1,5 @@
 class WelcomeController < ApplicationController
-  layout "desktop"
+  layout "responsive"
 
   def index
   end

@@ -38,9 +38,9 @@ io.on('connection', function (socket) {
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
-    lastsendmessage.push(socket.username);
+    lastsendmessage.unshift(socket.username);
     // we tell the client to execute 'new message'
-    socket.broadcast.emit('new message', {
+    io.emit('new message', {
       username: socket.username,
       message: data,
       lastsendmessage: lastsendmessage

@@ -16,7 +16,7 @@
     <nav class="navbar navbar-default color-default border-radius-null">
       <div class="container">
         <div class="navbar-header">
-          <a class="navbar-brand write" href="#">PovoLoko</a>
+          <a class="navbar-brand write" href="#">PovoLoko</a> <a href="#" class="visible-xs-block navbar-brand write right">USUARIOS</a>
         </div>
 
       </div>
@@ -40,13 +40,13 @@
       </div>
     </nav>
     <!--45.55.170.134-->
-    <script src="http://45.55.170.134:3001/socket.io/socket.io.js"></script>
+    <script src="http://localhost:3001/socket.io/socket.io.js"></script>
     <%= javascript_include_tag "application" %>
     
     <script> 
       $(document).ready(function(){
         
-        var socket = io.connect("http://45.55.170.134:3001/");
+        var socket = io.connect("http://localhost:3001/");
         function setUsername (username, image, id) {
           if (username) {
             // Tell the server your username

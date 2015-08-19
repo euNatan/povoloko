@@ -88,10 +88,10 @@ $(function() {
     // if there is a non-empty message and a socket connection
     if (message && connected) {
       $inputMessage.val('');
-      addChatMessage({
+      /*addChatMessage({
         username: username,
         message: message
-      });
+      }); */
       // tell server to execute 'new message' and send along one parameter
       socket.emit('new message', message);
       $(".upload-preview").hide("slow");
@@ -106,10 +106,10 @@ $(function() {
     // if there is a non-empty message and a socket connection
     if (message && connected) {
       $inputMessage.val('');
-      addChatMessage({
+      /*addChatMessage({  adicionava a mensagem do cliente sem passar pelo socket 
         username: username,
         message: message
-      });
+      });*/
       // tell server to execute 'new message' and send along one parameter
       socket.emit('new message', message);
     }
@@ -135,10 +135,14 @@ $(function() {
       .text(data.username)
       .css('color', getUsernameColor(data.username));
     if (data.message.length > 6000){
-      var $messageBodyDiv = $('<span class="messageBody"><div style="background-color:'+getUsernameColor(data.username)+';" class="col-md-4 balao balaom"><a class="lightview" href="'+ data.message +'"><img src="'+ data.message +'"></a></div></span>');
+      var $messageBodyDiv = $('<span class="messageBody"><div style="color:'+getUsernameColor(data.username)+';" class="col-md-4 balao balaom"><a class="lightview" href="'+ data.message +'"><img src="'+ data.message +'"></a></div></span>');
     }else{
-      console.log(data);
-      var $messageBodyDiv = $('<span class="messageBody"><div style="background-color:'+getUsernameColor(data.username)+';" class="col-md-9 balao2 balaom">'+data.message+'</div></span>');
+      if ( data.lastsendmessage[1] == data.username){
+        $('.well .message:last-child .balaom').append("<br>"+ data.message);
+        return;
+      }else{
+        var $messageBodyDiv = $('<span class="messageBody"><div style="color:'+getUsernameColor(data.username)+';" class="col-md-9 balao2 balaom">'+data.message+'</div></span>');
+      }  
     }    
 
     var typingClass = data.typing ? 'typing' : '';
@@ -317,7 +321,8 @@ $(function() {
     $('.users').empty();
 
     for (var key in data.users) {
-        $(".users").append('<div class="col-md-12 padding-null"><div class="col-md-2 padding-null"><img src="http://povoloko-eunatan1.c9.io/'+data.users[key].userimage +'" class="img-circle"></div><div class="uname col-md-8 padding-null">'+ data.users[key].username +'</div></div>');
+       // $(".users").append('<div class="col-md-12 padding-null"><div class="col-md-2 padding-null"><img src="http://povoloko-eunatan1.c9.io/'+data.users[key].userimage +'" class="img-circle"></div><div class="uname col-md-8 padding-null">'+ data.users[key].username +'</div></div>');
+        $(".users").append('<li><div class="col-md-12"><div class="col-md-3"><img src="http://povoloko-eunatan1.c9.io/'+data.users[key].userimage +'" class="img-circle"></div><div class="col-md-8"><a href="#">'+ data.users[key].username +'</a></div></div></li>')
     }
   });
   

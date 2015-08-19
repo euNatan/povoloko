@@ -1,3 +1,4 @@
+@import "bootstrap/simple-sidebar";
 @import "bootstrap/bootstrap";
 @import "lightview/lightview";
 
@@ -15,6 +16,7 @@ $border-color-black: #555;
 body{
   word-break: break-all;
   word-wrap: break-word;
+  font-size:12px;
 }
 img{width:100%;}
 h3{color:$color-default !important;}
@@ -34,6 +36,7 @@ li{list-style-type: none;}
 .margin-null{
   margin: 0px !important;
 }
+.bg-color-black{ background-color: $color-black;}
 .username{float: left;}
 .right{float:right;}
 .seis{height:600px;}
@@ -43,8 +46,8 @@ li{list-style-type: none;}
 .border-null{border:0px solid transparent !important;}
 .border-lb-null{border-left: 0px !important;border-bottom:0px !important;}
 .well{background-color: $color-lightblue !important;overflow-y: auto;}
-.fixed-bottom{position:fixed !important;bottom:0px !important;width: 100%;}
-.input-message{height: 33px;width: 79%; margin-top: 7px;}
+.fixed-bottom{position:fixed !important;bottom:0px !important;width: 100%;margin-bottom: 0px !important;}
+.input-message{ height: 33px; width: 72%; margin-top: 7px; margin-left: 19px;}
 .btn-message{color:$color-write !important;background-color:$color-default;width:7%;}
 .btn-image{color:$color-write !important;background-color:$color-black;width:7%;}
 .messageBody{margin-left:5px;}
@@ -52,15 +55,15 @@ li{list-style-type: none;}
 .uname{margin:0 0 0 15px; position: relative; top: 10px; font-size: 15px; color: $color-default; text-transform: capitalize;}
 .upload-preview{
   padding: 4px;
-  max-width: 50%;
+  max-width: 35%;
   max-height: 70%;
   display:table;
   position: absolute;
   right: 20%;
-  bottom: 15%;
+  bottom: 10%;
   background-color: rgba(0,0,0,0.5);
 }
-.upload-preview img{width:91.4%; height:100%;}
+.upload-preview img{width:100%;}
 .upload-preview .bottom{
   position: absolute;
   right: 0px;
@@ -75,15 +78,16 @@ li{list-style-type: none;}
 }
 .balaom{
   padding: 10px;
-  background-color: #ABCEF4;
+  background-color: #fff;
   border-radius: 8px;
   position: relative;
   left: 14px;
-  box-shadow: 1px 1px 2px #666;
+  box-shadow: 1px 1px 1px #999;
 }
 .balao:before {
     border: solid;
     border-color: #EEF transparent;
+    background-color: #fff;
     border-width: 5px 10px 5px 0px;
     margin-top: -2px;
     content: "";
@@ -95,11 +99,36 @@ li{list-style-type: none;}
 .balao2:before{
   border: solid;
   border-color: #EEF transparent;
+  background-color: #fff;
   border-width: 5px 10px 5px 0px;
-  margin-top: -1px;
+  margin-top: -4px;
   content: "";
   display: block;
   left: -1.5%;
   position: absolute;
   z-index: 99;
 }  
+
+@media(max-width:700px) {
+  .navbar-header {
+     margin-right: 0px !important; 
+     margin-left: 0px !important; 
+  }
+  .container {
+    padding-right: 0px !important;
+    padding-left: 0px !important;
+   } 
+  .col-md-12,.col-md-3,.col-md-9,.col-md-8{float:left;}
+  .col-md-12 {
+    width: 100%;
+  }
+  .col-md-3 {
+    width: 25%;
+  }
+  .col-md-9 {
+    width: 100%;
+  }
+  .col-md-8 {
+    width: 75%;
+  }
+}
