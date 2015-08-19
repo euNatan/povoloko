@@ -6,7 +6,7 @@
     <div class="panel-body seis">
       <div id="user_nav">
         <% if current_user %>
-          Signed in as <strong class="usernameInput"><%= current_user.name %></strong>!
+          Entrou como <strong class="usernameInput"><%= current_user.name %></strong>!
           <%= link_to "Sair", signout_path, id: "sign_out" %>
         <% else %>
           <%= link_to "Logar com Facebook", "/auth/facebook", id: "sign_in" %>

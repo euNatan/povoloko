@@ -11,7 +11,7 @@ $(function() {
   // Initialize varibles
   var $window = $(window);
   var $usernameInput = $('.usernameInput'); // Input for username
-  var $messages = $('.messages'); // Messages area
+  var $messages = $('.well'); // Messages area
   var $inputMessage = $('.inputMessage'); // Input message input box
 
   var $loginPage = $('.login.page'); // The login page
@@ -54,7 +54,49 @@ $(function() {
       });
     }
   } */
+  //image preview
+  var preview = $(".upload-preview img"); /*aqui coloque a classe e o img(que se refere ao <img src...>) onde sera a preview*/
 
+  $(".file-image").change(function(event){ /*aqui coloque a classe que carrega a imagem*/
+      $(".upload-preview").show(300);
+
+      var input = $(event.currentTarget);
+      var file = input[0].files[0];
+      var reader = new FileReader();
+      reader.onload = function(e){
+          image_base64 = e.target.result;
+          preview.attr("src", image_base64);
+          $(".img-send").attr("value", image_base64);
+      };
+
+      reader.readAsDataURL(file);
+
+  });
+  $(".del").click(function(){
+    $(".upload-preview").hide("slow");
+  });
+  $(".send").click(function(){
+    sendImage ();
+  });
+  
+  // Sends a chat image
+  function sendImage () {
+    var message = $(".img-send").val();
+    
+    // Prevent markup from being injected into the message
+    message = cleanInput(message);
+    // if there is a non-empty message and a socket connection
+    if (message && connected) {
+      $inputMessage.val('');
+      addChatMessage({
+        username: username,
+        message: message
+      });
+      // tell server to execute 'new message' and send along one parameter
+      socket.emit('new message', message);
+      $(".upload-preview").hide("slow");
+    }
+  }
   // Sends a chat message
   function sendMessage () {
     var message = $inputMessage.val();
@@ -92,8 +134,12 @@ $(function() {
     var $usernameDiv = $('<span class="username"/>')
       .text(data.username)
       .css('color', getUsernameColor(data.username));
-    var $messageBodyDiv = $('<span class="messageBody">')
-      .text(data.message);
+    if (data.message.length > 6000){
+      var $messageBodyDiv = $('<span class="messageBody"><div style="background-color:'+getUsernameColor(data.username)+';" class="col-md-4 balao balaom"><a class="lightview" href="'+ data.message +'"><img src="'+ data.message +'"></a></div></span>');
+    }else{
+      console.log(data);
+      var $messageBodyDiv = $('<span class="messageBody"><div style="background-color:'+getUsernameColor(data.username)+';" class="col-md-9 balao2 balaom">'+data.message+'</div></span>');
+    }    
 
     var typingClass = data.typing ? 'typing' : '';
     var $messageDiv = $('<li class="message"/>')
@@ -271,7 +317,7 @@ $(function() {
     $('.users').empty();
 
     for (var key in data.users) {
-        $(".users").append('<div class="col-md-12 padding-null"><div class="col-md-2 padding-null"><img src="http://localhost:3000/'+data.users[key].userimage +'" class="img-circle"></div><div class="uname col-md-8 padding-null">'+ data.users[key].username +'</div></div>');
+        $(".users").append('<div class="col-md-12 padding-null"><div class="col-md-2 padding-null"><img src="http://povoloko-eunatan1.c9.io/'+data.users[key].userimage +'" class="img-circle"></div><div class="uname col-md-8 padding-null">'+ data.users[key].username +'</div></div>');
     }
   });
   

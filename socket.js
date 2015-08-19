@@ -30,6 +30,7 @@ http.listen(3001, function(){
 // usernames which are currently connected to the chat
 var usernames = {};
 var users = [];
+var lastsendmessage = [];
 var numUsers = 0;
 
 io.on('connection', function (socket) {
@@ -37,10 +38,12 @@ io.on('connection', function (socket) {
 
   // when the client emits 'new message', this listens and executes
   socket.on('new message', function (data) {
+    lastsendmessage.push(socket.username);
     // we tell the client to execute 'new message'
     socket.broadcast.emit('new message', {
       username: socket.username,
-      message: data
+      message: data,
+      lastsendmessage: lastsendmessage
     });
   });
 

@@ -1,4 +1,6 @@
 @import "bootstrap/bootstrap";
+@import "lightview/lightview";
+
 
 $color-default: #0077A7;
 $border-color-default: #028CC4;
@@ -32,15 +34,72 @@ li{list-style-type: none;}
 .margin-null{
   margin: 0px !important;
 }
+.username{float: left;}
+.right{float:right;}
 .seis{height:600px;}
+.message{float: left; width: 100%; margin:10px;}
 .write{color:$color-write !important;}
 .border-radius-null{border-radius: 0px !important;}
 .border-null{border:0px solid transparent !important;}
 .border-lb-null{border-left: 0px !important;border-bottom:0px !important;}
-.well{background-color: $color-lightblue !important;}
+.well{background-color: $color-lightblue !important;overflow-y: auto;}
 .fixed-bottom{position:fixed !important;bottom:0px !important;width: 100%;}
-.input-message{height: 33px;width: 89%; margin-top: 7px;}
-.btn-message{color:$color-write !important;background-color:$color-default;width:10%;}
+.input-message{height: 33px;width: 79%; margin-top: 7px;}
+.btn-message{color:$color-write !important;background-color:$color-default;width:7%;}
+.btn-image{color:$color-write !important;background-color:$color-black;width:7%;}
 .messageBody{margin-left:5px;}
-.log {color: gray; font-size: 70%; margin: 5px; text-align: center; }
+.log {color: gray; font-size: 76%; margin: 5px; text-align: center; }
 .uname{margin:0 0 0 15px; position: relative; top: 10px; font-size: 15px; color: $color-default; text-transform: capitalize;}
+.upload-preview{
+  padding: 4px;
+  max-width: 50%;
+  max-height: 70%;
+  display:table;
+  position: absolute;
+  right: 20%;
+  bottom: 15%;
+  background-color: rgba(0,0,0,0.5);
+}
+.upload-preview img{width:91.4%; height:100%;}
+.upload-preview .bottom{
+  position: absolute;
+  right: 0px;
+  bottom: 0px;
+  margin: 0 3px 3px 3px;
+}
+.upload-preview .top{
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  margin: 3px 3px 0px 3px;
+}
+.balaom{
+  padding: 10px;
+  background-color: #ABCEF4;
+  border-radius: 8px;
+  position: relative;
+  left: 14px;
+  box-shadow: 1px 1px 2px #666;
+}
+.balao:before {
+    border: solid;
+    border-color: #EEF transparent;
+    border-width: 5px 10px 5px 0px;
+    margin-top: -2px;
+    content: "";
+    display: block;
+    left: -3.3%;
+    position: absolute;
+    z-index: 99;
+  }
+.balao2:before{
+  border: solid;
+  border-color: #EEF transparent;
+  border-width: 5px 10px 5px 0px;
+  margin-top: -1px;
+  content: "";
+  display: block;
+  left: -1.5%;
+  position: absolute;
+  z-index: 99;
+}  

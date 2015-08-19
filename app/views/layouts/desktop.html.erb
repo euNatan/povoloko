@@ -25,11 +25,18 @@
     <div class="container">
       <%= yield %>
     </div>
-
+    <div class="upload-preview" style="display:none;">
+      <input type"text" value="" class="img-send" style="display:none;">
+      <button type="button" class="btn btn-danger del border-radius-null top right">Fechar</button>
+      <img src="">
+      <button type="button" class="btn btn-success send border-radius-null bottom right">Enviar</button>
+      </div>
     <nav class="navbar navbar-default color-silver fixed-bottom border-radius-null">
       <div class="container">
+          <%= file_field_tag :image, style:"display:none;", class:"file-image" %>
           <%= text_field_tag :message,"", class:"input-message inputMessage" %>
-          <button type="button" class="btn btn-message border-radius-null">Primary</button>
+          <button type="button" onclick="$('.file-image').click()" class="btn btn-message border-radius-null"><span class="col-md-12"><%= image_tag "image.png" %></span></button>
+          <button type="button" class="btn btn-image border-radius-null"><span class="col-md-12"><%= image_tag "video.png" %></span></button>
       </div>
     </nav>
     <!--45.55.170.134-->
@@ -38,6 +45,7 @@
     
     <script> 
       $(document).ready(function(){
+        
         var socket = io.connect("http://45.55.170.134:3001/");
         function setUsername (username, image, id) {
           if (username) {
